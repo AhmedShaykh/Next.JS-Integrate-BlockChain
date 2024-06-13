@@ -67,7 +67,7 @@ const DApp = () => {
     const balance: string = formatEther(contractBalance?.toString());
 
     return (
-        <div className="flex flex-col justify-center items-center mt-20">
+        <div className="flex flex-col justify-center items-center mt-16">
             <w3m-button />
 
             <div className="my-8 flex flex-col justify-center items-center gap-2">

@@ -1,4 +1,5 @@
 "use client";
+import NFTMinter from "@/Components/NFTMinter";
 import DApp from "@/Components/DApp";
 import { useAccount } from "wagmi";
 
@@ -17,6 +18,7 @@ const Main = () => {
     return (
         <>
             <DApp />
+            <NFTMinter />
         </>
     )
 };
