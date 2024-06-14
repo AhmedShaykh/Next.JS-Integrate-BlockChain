@@ -1,4 +1,5 @@
 import { ContractABI, ContractAddress } from "@/abi";
+import { Button } from "@/Components/ui/button";
 import { useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { formatEther, parseEther } from "viem";
 
@@ -68,7 +69,9 @@ const DApp = () => {
 
     return (
         <div className="flex flex-col justify-center items-center mt-16">
-            <w3m-button />
+            <div className="bg-black text-white rounded-full">
+                <w3m-button />
+            </div>
 
             <div className="my-8 flex flex-col justify-center items-center gap-2">
                 <h2 className="text-lg py-4 font-semibold">
@@ -87,26 +90,26 @@ const DApp = () => {
                     </span>
                 </h2>
 
-                <button
-                    className="bg-white text-black py-2 px-5 rounded-full text-md font-semibold my-2"
+                <Button
+                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
                     onClick={setOwnerNew}
                 >
                     {updatingOwnerName ? "Loading..." : "Update Name"}
-                </button>
+                </Button>
 
-                <button
-                    className="bg-white text-black py-2 px-5 rounded-full text-md font-semibold my-2"
+                <Button
+                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
                     onClick={pay}
                 >
                     {isPayContract || isPayConfirm ? "Loading..." : "Pay Contract"}
-                </button>
+                </Button>
 
-                <button
-                    className="bg-white text-black py-2 px-5 rounded-full text-md font-semibold my-2"
+                <Button
+                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
                     onClick={withdrawEther}
                 >
                     {isWithdraw || isWithdrawConfirm ? "Loading..." : `Withdraw ${balance} ETH`}
-                </button>
+                </Button>
             </div>
         </div>
     )

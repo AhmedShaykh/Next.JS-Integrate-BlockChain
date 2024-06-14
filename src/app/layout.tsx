@@ -1,5 +1,7 @@
 import Web3ModalProvider from "@/Components/Provider";
+import Navbar from "@/Components/Navbar";
 import { config } from "@/config";
+import { ThemeProvider } from "next-themes";
 import { cookieToInitialState } from "wagmi";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
@@ -24,11 +26,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Web3ModalProvider
-          initialState={initialState}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
         >
-          {children}
-        </Web3ModalProvider>
+          <Web3ModalProvider
+            initialState={initialState}
+          >
+            <Navbar />
+            {children}
+          </Web3ModalProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

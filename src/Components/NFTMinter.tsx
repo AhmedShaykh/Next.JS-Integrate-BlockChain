@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { pinataToken } from "@/lib/services";
+import { Button } from "@/Components/ui/button";
 import axios from "axios";
 
 const NFTMinter = () => {
@@ -56,12 +57,12 @@ const NFTMinter = () => {
                             type="file"
                         />
 
-                        <button
-                            className="bg-white text-black py-2 px-5 rounded-full text-md font-semibold my-2"
+                        <Button
+                            className="py-2 px-5 rounded-full text-md font-semibold my-2"
                             type="submit"
                         >
                             Submit
-                        </button>
+                        </Button>
                     </form>
                 </>
             )}
