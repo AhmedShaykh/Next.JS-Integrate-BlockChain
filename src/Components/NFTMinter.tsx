@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { apiJWT } from "@/lib/services";
 import { Button } from "@/Components/ui/button";
@@ -33,27 +32,18 @@ const NFTMinter = () => {
 
             console.log("Image Hash ", imageHash);
 
-            // const body = {
-            //     pinataOptions: { cidVersion: 1 },
-            //     pinataMetadata: { name: `${Math.floor(Math.random() * 1000)}.json` },
-            //     pinataContent: {
-            //         description: "My NFTs",
-            //         external_url: "",
-            //         imageUrl: `ipfs://${imageHash}`,
-            //         image: `ipfs://${imageHash}`,
-            //         name: "Ahmed Shaykh",
-            //         attributes: [],
-            //     }
-            // };
-
-            // const jsonRes = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", body, {
-            //     headers: {
-            //         Authorization: `Bearer ${apiJWT}}`,
-            //         "Content-Type": "application/json"
-            //     },
-            // });
-
-            // console.log(jsonRes);
+            const body = {
+                pinataOptions: { cidVersion: 1 },
+                pinataMetadata: { name: `${Math.floor(Math.random() * 1000)}.json` },
+                pinataContent: {
+                    description: "My NFTs",
+                    external_url: "",
+                    imageUrl: `ipfs://${imageHash}`,
+                    image: `ipfs://${imageHash}`,
+                    name: "Ahmed Shaykh",
+                    attributes: []
+                }
+            };
 
         } catch (error) {
 
