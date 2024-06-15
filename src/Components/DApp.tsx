@@ -68,49 +68,43 @@ const DApp = () => {
     const balance: string = formatEther(contractBalance?.toString());
 
     return (
-        <div className="flex flex-col justify-center items-center mt-16">
-            <div className="bg-black text-white rounded-full">
-                <w3m-button />
-            </div>
+        <div className="my-8 flex flex-col justify-center items-center gap-2">
+            <h2 className="text-lg py-4 font-semibold">
+                Owner Name: {ownerName}
+            </h2>
 
-            <div className="my-8 flex flex-col justify-center items-center gap-2">
-                <h2 className="text-lg py-4 font-semibold">
-                    Owner Name: {ownerName}
-                </h2>
+            <h2 className="text-md py-2 font-semibold">
+                Owner Name: {ownerAddress}
+            </h2>
 
-                <h2 className="text-md py-2 font-semibold">
-                    Owner Name: {ownerAddress}
-                </h2>
+            <h2 className="text-md py-2 font-semibold mb-2">
+                Get Contract Balance: {""}
 
-                <h2 className="text-md py-2 font-semibold mb-2">
-                    Get Contract Balance: {""}
+                <span className="font-bold">
+                    {balance} ETH
+                </span>
+            </h2>
 
-                    <span className="font-bold">
-                        {balance} ETH
-                    </span>
-                </h2>
+            <Button
+                className="py-2 px-5 rounded-full text-md font-semibold my-2"
+                onClick={setOwnerNew}
+            >
+                {updatingOwnerName ? "Loading..." : "Update Name"}
+            </Button>
 
-                <Button
-                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
-                    onClick={setOwnerNew}
-                >
-                    {updatingOwnerName ? "Loading..." : "Update Name"}
-                </Button>
+            <Button
+                className="py-2 px-5 rounded-full text-md font-semibold my-2"
+                onClick={pay}
+            >
+                {isPayContract || isPayConfirm ? "Loading..." : "Pay Contract"}
+            </Button>
 
-                <Button
-                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
-                    onClick={pay}
-                >
-                    {isPayContract || isPayConfirm ? "Loading..." : "Pay Contract"}
-                </Button>
-
-                <Button
-                    className="py-2 px-5 rounded-full text-md font-semibold my-2"
-                    onClick={withdrawEther}
-                >
-                    {isWithdraw || isWithdrawConfirm ? "Loading..." : `Withdraw ${balance} ETH`}
-                </Button>
-            </div>
+            <Button
+                className="py-2 px-5 rounded-full text-md font-semibold my-2"
+                onClick={withdrawEther}
+            >
+                {isWithdraw || isWithdrawConfirm ? "Loading..." : `Withdraw ${balance} ETH`}
+            </Button>
         </div>
     )
 };

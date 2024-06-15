@@ -1,4 +1,5 @@
 import Web3ModalProvider from "@/Components/Provider";
+import WalletGuard from "@/Components/WalletGuard";
 import Navbar from "@/Components/Navbar";
 import { config } from "@/config";
 import { ThemeProvider } from "next-themes";
@@ -35,7 +36,9 @@ export default function RootLayout({
           <Web3ModalProvider
             initialState={initialState}
           >
-            <Navbar />
+            <WalletGuard>
+              <Navbar />
+            </WalletGuard>
             {children}
           </Web3ModalProvider>
         </ThemeProvider>

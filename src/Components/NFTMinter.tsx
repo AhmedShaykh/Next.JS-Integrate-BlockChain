@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { pinataToken } from "@/lib/services";
+import { apiJWT } from "@/lib/services";
 import { Button } from "@/Components/ui/button";
 import axios from "axios";
 
@@ -24,10 +24,36 @@ const NFTMinter = () => {
 
             const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", form, {
                 headers: {
-                    Authorization: `Bearer ${pinataToken}`,
+                    Authorization: `Bearer ${apiJWT}`,
                     "Content-Type": "multipart/form-data"
                 }
             });
+
+            const imageHash = res.data.IpfsHash;
+
+            console.log("Image Hash ", imageHash);
+
+            // const body = {
+            //     pinataOptions: { cidVersion: 1 },
+            //     pinataMetadata: { name: `${Math.floor(Math.random() * 1000)}.json` },
+            //     pinataContent: {
+            //         description: "My NFTs",
+            //         external_url: "",
+            //         imageUrl: `ipfs://${imageHash}`,
+            //         image: `ipfs://${imageHash}`,
+            //         name: "Ahmed Shaykh",
+            //         attributes: [],
+            //     }
+            // };
+
+            // const jsonRes = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", body, {
+            //     headers: {
+            //         Authorization: `Bearer ${apiJWT}}`,
+            //         "Content-Type": "application/json"
+            //     },
+            // });
+
+            // console.log(jsonRes);
 
         } catch (error) {
 
