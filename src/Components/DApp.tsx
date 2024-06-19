@@ -65,7 +65,9 @@ const DApp = () => {
         })
     };
 
-    const balance: string = formatEther(contractBalance?.toString());
+    const balance: any = String(contractBalance);
+
+    const ethbalance: string = formatEther(balance);
 
     return (
         <div className="my-8 flex flex-col justify-center items-center gap-2">
@@ -81,7 +83,7 @@ const DApp = () => {
                 Get Contract Balance: {""}
 
                 <span className="font-bold">
-                    {balance} ETH
+                    {ethbalance} ETH
                 </span>
             </h2>
 
@@ -103,7 +105,7 @@ const DApp = () => {
                 className="py-2 px-5 rounded-full text-md font-semibold my-2"
                 onClick={withdrawEther}
             >
-                {isWithdraw || isWithdrawConfirm ? "Loading..." : `Withdraw ${balance} ETH`}
+                {isWithdraw || isWithdrawConfirm ? "Loading..." : `Withdraw ${ethbalance} ETH`}
             </Button>
         </div>
     )

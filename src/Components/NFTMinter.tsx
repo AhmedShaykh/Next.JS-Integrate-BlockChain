@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { NFTContractABI, NFTContractAddress } from "@/abi";
 import { apiJWT } from "@/lib/services";
 import { Button } from "@/Components/ui/button";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import Link from "next/link";
 import axios from "axios";
 
 const NFTMinter = () => {
@@ -8,6 +11,17 @@ const NFTMinter = () => {
     const [file, setFile] = useState<any>(null);
 
     const [loading, setLoading] = useState(false);
+
+    const { writeContract } = useWriteContract();
+
+    const { address } = useAccount();
+
+    const { data: nfts, isPending: isNftsLoading }: any = useReadContract({
+        address: NFTContractAddress,
+        abi: NFTContractABI,
+        functionName: "getUserTokenURIs",
+        args: [address]
+    });
 
     const handleSubmit = async (e: any) => {
 
@@ -30,8 +44,6 @@ const NFTMinter = () => {
 
             const imageHash = res.data.IpfsHash;
 
-            console.log("Image Hash ", imageHash);
-
             const body = {
                 pinataOptions: { cidVersion: 1 },
                 pinataMetadata: { name: `${Math.floor(Math.random() * 1000)}.json` },
@@ -44,6 +56,22 @@ const NFTMinter = () => {
                     attributes: []
                 }
             };
+
+            const jsonRes = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", body, {
+                headers: {
+                    Authorization: `Bearer ${apiJWT}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            await writeContract({
+                address: NFTContractAddress,
+                abi: NFTContractABI,
+                functionName: "safeMint",
+                args: [address, `ipfs://${jsonRes.data.IpfsHash}`]
+            });
+
+            console.log(jsonRes);
 
         } catch (error) {
 
@@ -60,7 +88,7 @@ const NFTMinter = () => {
     };
 
     return (
-        <div className="flex justify-center items-center mt-5 mb-8 max-w-5xl mx-auto">
+        <div className="flex flex-col justify-center items-center mt-5 mb-8 max-w-5xl mx-auto">
             {loading ? (
                 <h2 className="text-lg text-center py-4 font-semibold">
                     Uploading Image On IPFS Pinata...
@@ -82,6 +110,24 @@ const NFTMinter = () => {
                     </form>
                 </>
             )}
+
+            <div className="my-5">
+                {!isNftsLoading ? (
+                    nfts.map((item: any, i: number) => (
+                        <Link
+                            className="block text-blue-500 py-3"
+                            href={`https://ipfs.io/${item}`}
+                            key={i}
+                        >
+                            {item}
+                        </Link>
+                    ))
+                ) : (
+                    <h2 className="text-lg text-center py-4 font-semibold">
+                        NFTs Is Loading...
+                    </h2>
+                )}
+            </div>
         </div>
     )
 };
