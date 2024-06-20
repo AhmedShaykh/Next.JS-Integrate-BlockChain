@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { NFTContractABI, NFTContractAddress } from "@/abi";
-import { apiJWT } from "@/lib/services";
 import { Button } from "@/Components/ui/button";
-import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import Link from "next/link";
+import { apiJWT } from "@/lib/services";
+import NFTs from "@/Components/NFTs";
+import { useAccount, useWriteContract } from "wagmi";
 import axios from "axios";
 
 const NFTMinter = () => {
@@ -15,13 +15,6 @@ const NFTMinter = () => {
     const { writeContract } = useWriteContract();
 
     const { address } = useAccount();
-
-    const { data: nfts, isPending: isNftsLoading }: any = useReadContract({
-        address: NFTContractAddress,
-        abi: NFTContractABI,
-        functionName: "getUserTokenURIs",
-        args: [address]
-    });
 
     const handleSubmit = async (e: any) => {
 
@@ -111,23 +104,7 @@ const NFTMinter = () => {
                 </>
             )}
 
-            <div className="my-5">
-                {!isNftsLoading ? (
-                    nfts.map((item: any, i: number) => (
-                        <Link
-                            className="block text-blue-500 py-3"
-                            href={`https://ipfs.io/${item}`}
-                            key={i}
-                        >
-                            {item}
-                        </Link>
-                    ))
-                ) : (
-                    <h2 className="text-lg text-center py-4 font-semibold">
-                        NFTs Is Loading...
-                    </h2>
-                )}
-            </div>
+            <NFTs />
         </div>
     )
 };
