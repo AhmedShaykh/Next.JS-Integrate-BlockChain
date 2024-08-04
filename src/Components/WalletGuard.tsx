@@ -5,18 +5,16 @@ const WalletGuard = ({ children }: { children: React.ReactNode }) => {
 
     const { isDisconnected } = useAccount();
 
-    if (isDisconnected) {
-        return (
-            <div className="grid place-items-center h-screen">
+    return (
+        isDisconnected ? (
+            <div className="flex justify-center items-center h-screen">
                 <w3m-button />
             </div>
+        ) : (
+            <>
+                {children}
+            </>
         )
-    }
-
-    return (
-        <>
-            {children}
-        </>
     )
 
 };

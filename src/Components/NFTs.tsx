@@ -38,13 +38,11 @@ const NFTs = () => {
 
     }, []);
 
-    console.log(data);
-
     return (
         <div className="my-5">
             {!isNftsLoading ? (
                 <>
-                    {nfts.map((item: any, i: number) => (
+                    {nfts?.map((item: any, i: number) => (
                         <Link
                             className="block text-blue-500 py-3"
                             href={`${item}`}

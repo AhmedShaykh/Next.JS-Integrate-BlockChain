@@ -38,8 +38,8 @@ export default function RootLayout({
           >
             <WalletGuard>
               <Navbar />
+              {children}
             </WalletGuard>
-            {children}
           </Web3ModalProvider>
         </ThemeProvider>
       </body>
